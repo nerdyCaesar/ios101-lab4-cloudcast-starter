@@ -25,6 +25,7 @@ class ForecastViewController: UIViewController {
   @IBOutlet weak var forecastImageView: UIImageView!
 
     private var locations = [Location]()
+    private var selectedLocationIndex = 0 //keeps track of the locations
   override func viewDidLoad() {
     super.viewDidLoad()
     addGradient()
@@ -32,7 +33,17 @@ class ForecastViewController: UIViewController {
       let manila = Location(name: "Manila", latitude: 12.8797, longitude: 121.7740)
       let italy = Location(name: "Italy", latitude: 41.8719, longitude: 12.5674)
       locations = [sanJose, manila, italy]
+      changeLocation(withLocationIndex: 0)
+      // when the view loads, make sure the first location is shown
   }
+    
+    private func changeLocation (withLocationIndex locationIndex: Int) {
+        guard locationIndex < locations.count else {
+            return
+        }
+        let location = locations[locationIndex]
+        locationLabel.text = location.name
+    }
     
     
 
@@ -50,10 +61,15 @@ class ForecastViewController: UIViewController {
   }
   
   @IBAction func didTapBackButton(_ sender: UIButton) {
-    
+      selectedLocationIndex = max(0, selectedLocationIndex - 1)
+      // make sure selectedLocationIndex is always >= 0
+      changeLocation(withLocationIndex: selectedLocationIndex)
   }
   
   @IBAction func didTapForwardButton(_ sender: UIButton) {
+      selectedLocationIndex = min(locations.count - 1, selectedLocationIndex + 1)
+      // make sure selectedLocationIndex is always < locations.count
+      changeLocation(withLocationIndex: selectedLocationIndex)
     
   }
 }
