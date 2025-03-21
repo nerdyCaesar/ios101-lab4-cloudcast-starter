@@ -7,7 +7,14 @@
 
 import UIKit
 
+struct Location {
+  let name: String
+  let latitude: Double
+  let longitude: Double
+}
+
 class ForecastViewController: UIViewController {
+    
   
   @IBOutlet weak var locationLabel: UILabel!
   @IBOutlet weak var descriptionLabel: UILabel!
@@ -16,11 +23,21 @@ class ForecastViewController: UIViewController {
   @IBOutlet weak var windDirectionLabel: UILabel!
   @IBOutlet weak var dateLabel: UILabel!
   @IBOutlet weak var forecastImageView: UIImageView!
-  
+
+    private var locations = [Location]()
   override func viewDidLoad() {
     super.viewDidLoad()
     addGradient()
+      let sanJose = Location(name: "San Jose", latitude: 37.335480, longitude: -121.893028)
+      let manila = Location(name: "Manila", latitude: 12.8797, longitude: 121.7740)
+      let italy = Location(name: "Italy", latitude: 41.8719, longitude: 12.5674)
+      locations = [sanJose, manila, italy]
   }
+    
+    
+
+    
+    
   
   private func addGradient() {
     let gradientLayer = CAGradientLayer()
